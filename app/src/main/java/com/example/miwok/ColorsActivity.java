@@ -2,7 +2,6 @@ package com.example.miwok;
 
 import android.os.Bundle;
 import android.widget.ListView;
-import android.widget.Toolbar;
 
 import com.example.miwok.adapters.WordAdapter;
 import com.example.miwok.models.TemplateActivity;
