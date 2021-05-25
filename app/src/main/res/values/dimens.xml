@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <dimen name="text_container_left_padding">16dp</dimen>
+    <dimen name="text_size">18sp</dimen>
+    <!-- Height of each list item -->
+    <dimen name="list_item_height">88dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+</resources>
