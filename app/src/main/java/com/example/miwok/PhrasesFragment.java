@@ -1,21 +1,19 @@
 package com.example.miwok;
 
 import android.os.Bundle;
-import android.widget.ListView;
 
 import com.example.miwok.adapters.WordAdapter;
-import com.example.miwok.models.TemplateActivity;
+import com.example.miwok.models.TemplateFragment;
 import com.example.miwok.models.Word;
 
 import java.util.ArrayList;
 
-public class PhrasesActivity extends TemplateActivity {
+public class PhrasesFragment extends TemplateFragment {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_template);
 
         mWords = new ArrayList<>();
         mWords.add(new Word("Where are you going?","minto wuksus", R.raw.phrase_where_are_you_going));
@@ -29,38 +27,7 @@ public class PhrasesActivity extends TemplateActivity {
         mWords.add(new Word("Let’s go.","yoowutis", R.raw. phrase_lets_go));
         mWords.add(new Word("Come here.","әnni'nem", R.raw.phrase_come_here));
 
-        WordAdapter wordAdapter = new WordAdapter(this, mWords, R.color.category_phrases);
-
-        ListView listView = findViewById(R.id.wordView);
-
-        listView.setAdapter(wordAdapter);
-        listView.setOnItemClickListener(getWordClickListener());
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+        wordAdapter = new WordAdapter(getContext(), mWords, R.color.category_phrases);
     }
 
 }

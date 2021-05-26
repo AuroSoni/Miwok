@@ -1,22 +1,20 @@
 package com.example.miwok;
 
 import android.os.Bundle;
-import android.widget.ListView;
+
+import androidx.annotation.Nullable;
 
 import com.example.miwok.adapters.WordAdapter;
-import com.example.miwok.models.TemplateActivity;
+import com.example.miwok.models.TemplateFragment;
 import com.example.miwok.models.Word;
 
 import java.util.ArrayList;
 
-public class ColorsActivity extends TemplateActivity {
+public class ColorsFragment extends TemplateFragment {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_template);
-
-
         mWords = new ArrayList<>();
         mWords.add(new Word("red","weṭeṭṭi", R.raw.color_red, R.drawable.color_red));
         mWords.add(new Word("green","chokokki", R.raw.color_green, R.drawable.color_green));
@@ -27,11 +25,7 @@ public class ColorsActivity extends TemplateActivity {
         mWords.add(new Word("dusty yellow","ṭopiisә", R.raw.color_dusty_yellow, R.drawable.color_dusty_yellow));
         mWords.add(new Word("mustard yellow","chiwiiṭә", R.raw.color_mustard_yellow, R.drawable.color_mustard_yellow));
 
-        WordAdapter wordAdapter = new WordAdapter(this, mWords,R.color.category_colors);
-
-        ListView listView = findViewById(R.id.wordView);
-
-        listView.setAdapter(wordAdapter);
-        listView.setOnItemClickListener(getWordClickListener());
+        wordAdapter = new WordAdapter(getContext(), mWords,R.color.category_colors);
     }
+
 }

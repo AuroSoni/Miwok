@@ -1,20 +1,18 @@
 package com.example.miwok;
 
 import android.os.Bundle;
-import android.widget.ListView;
 
 import com.example.miwok.adapters.WordAdapter;
-import com.example.miwok.models.TemplateActivity;
+import com.example.miwok.models.TemplateFragment;
 import com.example.miwok.models.Word;
 
 import java.util.ArrayList;
 
-public class NumbersActivity extends TemplateActivity {
+public class NumbersFragment extends TemplateFragment {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_template);
 
         mWords = new ArrayList<>();
         mWords.add(new Word("one","lutti", R.raw.number_one,R.drawable.number_one));
@@ -28,11 +26,6 @@ public class NumbersActivity extends TemplateActivity {
         mWords.add(new Word("nine","wo'e", R.raw.number_nine, R.drawable.number_nine));
         mWords.add(new Word("ten","na'aacha", R.raw.number_ten,R.drawable.number_ten));
 
-        WordAdapter wordAdapter = new WordAdapter(this, mWords, R.color.category_numbers);
-
-        ListView listView = findViewById(R.id.wordView);
-
-        listView.setAdapter(wordAdapter);
-        listView.setOnItemClickListener(getWordClickListener());
+        wordAdapter = new WordAdapter(getContext(), mWords, R.color.category_numbers);
     }
 }

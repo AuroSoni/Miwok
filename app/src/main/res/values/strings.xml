@@ -12,7 +12,7 @@
     <string name="category_numbers">Numbers</string>
 
     <!-- Category name for the vocabulary words for family members [CHAR LIMIT=20] -->
-    <string name="category_family">Family Members</string>
+    <string name="category_family">Family</string>
     <string name="image_content_description">image</string>
     <string name="imageButtonContentDescription">play</string>
     <string name="up_button">back</string>

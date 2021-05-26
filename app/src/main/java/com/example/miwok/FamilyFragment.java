@@ -1,20 +1,21 @@
 package com.example.miwok;
 
 import android.os.Bundle;
-import android.widget.ListView;
+
+import androidx.annotation.Nullable;
 
 import com.example.miwok.adapters.WordAdapter;
-import com.example.miwok.models.TemplateActivity;
+import com.example.miwok.models.TemplateFragment;
 import com.example.miwok.models.Word;
 
 import java.util.ArrayList;
 
-public class FamilyActivity extends TemplateActivity {
+public class FamilyFragment extends TemplateFragment {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_template);
 
         mWords = new ArrayList<>();
         mWords.add(new Word("father","әpә", R.raw.family_father, R.drawable.family_father));
@@ -28,11 +29,6 @@ public class FamilyActivity extends TemplateActivity {
         mWords.add(new Word("grandmother","ama", R.raw.family_grandmother, R.drawable.family_grandmother));
         mWords.add(new Word("grandfather","paapa", R.raw.family_grandfather, R.drawable.family_grandfather));
 
-        WordAdapter wordAdapter = new WordAdapter(this, mWords,R.color.category_family);
-
-        ListView listView = findViewById(R.id.wordView);
-
-        listView.setAdapter(wordAdapter);
-        listView.setOnItemClickListener(getWordClickListener());
+        wordAdapter = new WordAdapter(getContext(), mWords,R.color.category_family);
     }
 }

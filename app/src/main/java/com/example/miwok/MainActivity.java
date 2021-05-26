@@ -1,19 +1,13 @@
 package com.example.miwok;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
 
-import com.example.miwok.models.Word;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
+import com.example.miwok.adapters.SimpleFragmentPagerAdapter;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,15 +19,25 @@ public class MainActivity extends AppCompatActivity {
         // Set the content of the activity to use the activity_main.xml layout file
         setContentView(R.layout.activity_main);
 
-        TextView numbersTextView = findViewById(R.id.numbers);
-        TextView colorsTextView = findViewById(R.id.colors);
-        TextView familyTextView = findViewById(R.id.family);
-        TextView phrasesTextView = findViewById(R.id.phrases);
+        ViewPager2 viewPager = findViewById(R.id.view_pager);
+        SimpleFragmentPagerAdapter simpleFragmentPagerAdapter = new SimpleFragmentPagerAdapter(getSupportFragmentManager(),getLifecycle());
+        viewPager.setAdapter(simpleFragmentPagerAdapter);
 
-        numbersTextView.setOnClickListener(v -> startActivity(new Intent(this, NumbersActivity.class)));
-        colorsTextView.setOnClickListener(v -> startActivity(new Intent(this, ColorsActivity.class)));
-        phrasesTextView.setOnClickListener(v -> startActivity(new Intent(this, PhrasesActivity.class)));
-        familyTextView.setOnClickListener(v -> startActivity(new Intent(this, FamilyActivity.class)));
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
 
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+            if (position == 0){
+                tab.setText(R.string.category_numbers);
+            }
+            else if (position == 1){
+                tab.setText(R.string.category_colors);
+            }
+            else if (position == 2){
+                tab.setText(R.string.category_family);
+            }
+            else {
+                tab.setText(R.string.category_phrases);
+            }
+        }).attach();
     }
 }

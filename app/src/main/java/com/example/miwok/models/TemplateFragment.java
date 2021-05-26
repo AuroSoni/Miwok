@@ -7,18 +7,22 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Toolbar;
+import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.example.miwok.R;
+import com.example.miwok.adapters.WordAdapter;
 
 import java.util.ArrayList;
 
-public class TemplateActivity extends AppCompatActivity {
+public class TemplateFragment extends Fragment {
 
 
     public ArrayList<Word> mWords = null;
@@ -34,6 +38,7 @@ public class TemplateActivity extends AppCompatActivity {
     boolean playbackDelayed = false;
     boolean playbackNowAuthorized = false;
     boolean resumeOnFocusGain = false;
+    public WordAdapter wordAdapter;
 
     public class WordClickListener implements AdapterView.OnItemClickListener{
 
@@ -69,7 +74,7 @@ public class TemplateActivity extends AppCompatActivity {
 
     public void playbackNow(){
         try {
-            mMediaPlayer = MediaPlayer.create(getApplicationContext(), mWord.getAudioResourceId());
+            mMediaPlayer = MediaPlayer.create(getContext(), mWord.getAudioResourceId());
             mMediaPlayer.start();
             mMediaPlayer.setOnCompletionListener(mp -> releaseMediaPlayer());
         } catch (Exception e){
@@ -82,12 +87,8 @@ public class TemplateActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mWordClickListener = new WordClickListener();
 
         // only resume if playback is being interrupted
@@ -125,7 +126,7 @@ public class TemplateActivity extends AppCompatActivity {
             }
         };
 
-        mAudioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+        mAudioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
         AudioAttributes playbackAttributes = new AudioAttributes.Builder()
                 .setUsage(AudioAttributes.USAGE_MEDIA)
                 .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
@@ -135,32 +136,25 @@ public class TemplateActivity extends AppCompatActivity {
                 .setAcceptsDelayedFocusGain(true)
                 .setOnAudioFocusChangeListener(mOnAudioFocusChangeListener)
                 .build();
+
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        View rootView = inflater.inflate(R.layout.fragment_template,container,false);
+        ListView listView = rootView.findViewById(R.id.wordView);
+
+        listView.setAdapter(wordAdapter);
+        listView.setOnItemClickListener(getWordClickListener());
+
+        return rootView;
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
         releaseMediaPlayer();
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
 }
